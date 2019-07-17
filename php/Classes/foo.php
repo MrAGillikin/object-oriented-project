@@ -151,6 +151,21 @@ class author {
 
 		$this->authorUsername = $newAuthorUsername;
 	}
+
+	/**
+	 * Constructor method for Author object
+	 */
+	public function __construct(Uuid $newAuthorId, string $newAuthorAvatarUrl, string $newAuthorActivationToken, string $newAuthorEmail, string $newAuthorHash, string $newAuthorUsername): void {
+		$this->setAuthorId($newAuthorId);
+		$this->setAuthorAvatarUrl($newAuthorAvatarUrl);
+		$this->setAuthorActivationToken($newAuthorActivationToken);
+		$this->setAuthorEmail($newAuthorEmail);
+		$this->setAuthorHash($newAuthorHash);
+		$this->setAuthorUsername($newAuthorUsername);
+	}
 }
+
+
+
 
 ?>
