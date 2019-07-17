@@ -36,9 +36,9 @@ class author {
 	/**
 	 * accessor method for authorId
 	 *
-	 * @return value of authorId (should fit in Binary)
+	 * @return Uuid of authorId (should fit in Binary)
 	 */
-	public function getAuthorId() {
+	public function getAuthorId(): Uuid {
 		return ($this->authorId);
 	}
 
@@ -48,7 +48,7 @@ class author {
 	 * @param int $newAuthorId new value of authorId
 	 * @throws UnexpectedValueException if $newAuthorId is not an Int. (Should actually be binary)
 	 */
-	public function setAuthorId(int $newAuthorId) {
+	public function setAuthorId(int $newAuthorId): void {
 		// verify the author ID is valid
 		$newAuthorId = filter_var($newAuthorId, FILTER_VALIDATE_INT);
 		if($newAuthorId === false) {
@@ -62,7 +62,7 @@ class author {
 	 *
 	 * @return String authorAvatarUrl
 	 */
-	public function getAuthorAvatarUrl() {
+	public function getAuthorAvatarUrl(): ?string {
 		return ($this->authorAvatarUrl);
 	}
 	/**
@@ -71,7 +71,7 @@ class author {
 	 * @param string $newAuthorAvatarUrl new value of authorAvatarUrl
 	 * @throws
 	 */
-	public function setAuthorAvatarUrl(string $newAuthorAvatarUrl) {
+	public function setAuthorAvatarUrl(string $newAuthorAvatarUrl): void {
 
 		$this->authorAvatatarUrl = $newAuthorAvatarUrl;
 	}
@@ -81,7 +81,7 @@ class author {
 	 *
 	 * @return string authorActivationToken
 	 */
-	public function getAuthorActivationToken() {
+	public function getAuthorActivationToken(): ?string {
 		return ($this->authorActivationToken);
 	}
 	/**
@@ -90,7 +90,7 @@ class author {
 	 * @param string $newAuthorActivationToken new value of authorActivationToken
 	 * @throws
 	 */
-	public function setAuthorActivationToken(string $newAuthorActivationToken){
+	public function setAuthorActivationToken(string $newAuthorActivationToken): void{
 
 		$this->authorActivationToken = $newAuthorActivationToken;
 	}
@@ -100,7 +100,7 @@ class author {
 	 *
 	 * @return string authorEmail
 	 */
-	public function getAuthorEmail() {
+	public function getAuthorEmail(): string {
 		return ($this->authorEmail);
 	}
 	/**
@@ -109,7 +109,7 @@ class author {
 	 * @param string $newAuthorEmail new value of authorEmail
 	 * @throws
 	 */
-	public function setAuthorEmail(string $newAuthorEmail){
+	public function setAuthorEmail(string $newAuthorEmail): void{
 
 		$this->authorEmail = $newAuthorEmail;
 	}
@@ -119,7 +119,7 @@ class author {
 	 *
 	 * @return string authorHash
 	 */
-	public function getAuthorHash() {
+	public function getAuthorHash(): string {
 		return ($this->authorHash);
 	}
 	/**
@@ -128,7 +128,7 @@ class author {
 	 * @param string $newAuthorHash new value of authorHash
 	 * @throws
 	 */
-	public function setAuthorHash(string $newAuthorHash){
+	public function setAuthorHash(string $newAuthorHash): void{
 
 		$this->authorHash = $newAuthorHash;
 	}
@@ -138,7 +138,7 @@ class author {
 	 *
 	 * @return string authorUsername
 	 */
-	public function getAuthorUsername() {
+	public function getAuthorUsername(): string {
 		return ($this->authorUsername);
 	}
 	/**
@@ -147,7 +147,7 @@ class author {
 	 * @param string $newAuthorUsername new value of authorUsername
 	 * @throws
 	 */
-	public function setAuthorUsername(string $newAuthorUsername){
+	public function setAuthorUsername(string $newAuthorUsername): void{
 
 		$this->authorUsername = $newAuthorUsername;
 	}
