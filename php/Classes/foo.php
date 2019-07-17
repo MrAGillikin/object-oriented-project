@@ -58,18 +58,17 @@ class author {
 	}
 
 	/**
-	 * acessor method for authorAvatarUrl
+	 * accessor method for authorAvatarUrl
 	 *
 	 * @return String authorAvatarUrl
 	 */
 	public function getAuthorAvatarUrl() {
 		return ($this->authorAvatarUrl);
 	}
-
 	/**
-	 * Mutator method for authorAvatarUrl
+	 * Mutator method for authorAvatarUrl. NEEDS WORK!
 	 *
-	 * @param string %newAuthorAvatarUrl new value of authorAvatarUrl
+	 * @param string $newAuthorAvatarUrl new value of authorAvatarUrl
 	 * @throws
 	 */
 	public function setAuthorAvatarUrl(string $newAuthorAvatarUrl) {
@@ -77,6 +76,81 @@ class author {
 		$this->authorAvatatarUrl = $newAuthorAvatarUrl;
 	}
 
+	/**
+	 * Accessor method for authorActivationToken.
+	 *
+	 * @return string authorActivationToken
+	 */
+	public function getAuthorActivationToken() {
+		return ($this->authorActivationToken);
+	}
+	/**
+	 * Mutator method for authorActivationToken. Needs additional sanitizing
+	 *
+	 * @param string $newAuthorActivationToken new value of authorActivationToken
+	 * @throws
+	 */
+	public function setAuthorActivationToken(string $newAuthorActivationToken){
+
+		$this->authorActivationToken = $newAuthorActivationToken;
+	}
+
+	/**
+	 * Acessor method for authorEmail
+	 *
+	 * @return string authorEmail
+	 */
+	public function getAuthorEmail() {
+		return ($this->authorEmail);
+	}
+	/**
+	 * Mutator method for authorEmail. Needs additional sanitizing
+	 *
+	 * @param string $newAuthorEmail new value of authorEmail
+	 * @throws
+	 */
+	public function setAuthorEmail(string $newAuthorEmail){
+
+		$this->authorEmail = $newAuthorEmail;
+	}
+
+	/**
+	 * Acessor method for authorHash
+	 *
+	 * @return string authorHash
+	 */
+	public function getAuthorHash() {
+		return ($this->authorHash);
+	}
+	/**
+	 * Mutator method for authorHash. Needs additional sanitizing
+	 *
+	 * @param string $newAuthorHash new value of authorHash
+	 * @throws
+	 */
+	public function setAuthorHash(string $newAuthorHash){
+
+		$this->authorHash = $newAuthorHash;
+	}
+
+	/**
+	 * Acessor method for authorUsername
+	 *
+	 * @return string authorUsername
+	 */
+	public function getAuthorUsername() {
+		return ($this->authorUsername);
+	}
+	/**
+	 * Mutator method for authorUsername. Needs additional sanitizing
+	 *
+	 * @param string $newAuthorUsername new value of authorUsername
+	 * @throws
+	 */
+	public function setAuthorUsername(string $newAuthorUsername){
+
+		$this->authorUsername = $newAuthorUsername;
+	}
 }
 
 ?>
