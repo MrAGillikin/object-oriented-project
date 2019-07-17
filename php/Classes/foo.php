@@ -7,6 +7,10 @@
  * @author Alistair Gillikin <agillikin1@cnm.edu>
 **/
 
+namespace agillikin1\objectOriented;
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
+use Ramsey\Uuid\Uuid;
+
 class author {
 	/**
 	 * Id for this author. This is the primary Key, and the index.
