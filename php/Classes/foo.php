@@ -66,7 +66,7 @@ class author {
 	 *
 	 * @return String authorAvatarUrl
 	 */
-	public function getAuthorAvatarUrl(): ?string {
+	public function getAuthorAvatarUrl(): string {
 		return ($this->authorAvatarUrl);
 	}
 	/**
