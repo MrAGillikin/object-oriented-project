@@ -1,3 +1,5 @@
+drop table if exists author;
+
 create table author(
 	authorId binary(16) not null,
 	authorAvatarUrl varchar(255),
