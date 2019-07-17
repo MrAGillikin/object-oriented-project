@@ -154,6 +154,8 @@ class author {
 
 	/**
 	 * Constructor method for Author object
+	 *
+	 * @param AuthorId, AuthorAvatarUrl, AuthorActivationToken, authorEmail, authorHash, authorUsername
 	 */
 	public function __construct(Uuid $newAuthorId, string $newAuthorAvatarUrl, string $newAuthorActivationToken, string $newAuthorEmail, string $newAuthorHash, string $newAuthorUsername): void {
 		$this->setAuthorId($newAuthorId);
