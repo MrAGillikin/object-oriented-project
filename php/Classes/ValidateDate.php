@@ -1,5 +1,5 @@
 <?php
-namespace agillikin1\objectOriented;
+namespace agillikin1\ObjectOriented;
 /**
  * Trait to Validate a mySQL Date
  *

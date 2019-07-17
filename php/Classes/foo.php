@@ -7,7 +7,8 @@
  * @author Alistair Gillikin <agillikin1@cnm.edu>
 **/
 
-namespace agillikin1\objectOriented;
+namespace agillikin1\ObjectOriented;
+require_once
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 
