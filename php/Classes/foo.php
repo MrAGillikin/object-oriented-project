@@ -52,13 +52,21 @@ class author {
 	 * @param int $newAuthorId new value of authorId
 	 * @throws UnexpectedValueException if $newAuthorId is not an Int. (Should actually be binary)
 	 */
-	public function setAuthorId(int $newAuthorId): void {
+	public function setAuthorId(Uuid $newAuthorId): void {
 		// verify the author ID is valid
-		$newAuthorId = filter_var($newAuthorId, FILTER_VALIDATE_INT);
-		if($newAuthorId === false) {
-			throw(new UnexpectedValueException("Author ID is not a valid value"));
+		//$newAuthorId = filter_var($newAuthorId, FILTER_VALIDATE_INT);
+		//if($newAuthorId === false) {
+		//	throw(new UnexpectedValueException("Author ID is not a valid value"));
+		//}
+
+		try {
+			$uuid = self::validateUuid($newAuthorId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-		$this->authorId = intval($newAuthorId);
+
+		$this->authorId = $uuid;
 	}
 
 	/**
