@@ -78,13 +78,18 @@ class author {
 		return ($this->authorAvatarUrl);
 	}
 	/**
-	 * Mutator method for authorAvatarUrl. NEEDS WORK!
+	 * Mutator method for authorAvatarUrl. Updated.
 	 *
 	 * @param string $newAuthorAvatarUrl new value of authorAvatarUrl
-	 * @throws
+	 * @throws \InvalidArgumentException if $newAuthorAvatarUrl is not a string or insecure
+	 * @throws \TypeError if $newTweetContent is not a string
 	 */
 	public function setAuthorAvatarUrl(string $newAuthorAvatarUrl): void {
-
+		$newAuthorAvatarUrl = trim($newAuthorAvatarUrl);
+		$newAuthorAvatarUrl = filter_var($newAuthorAvatarUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newAuthorAvatarUrl) === true) {
+			throw(new \InvalidArgumentException("input is empty or insecure"));
+		}
 		$this->authorAvatatarUrl = $newAuthorAvatarUrl;
 	}
 
@@ -100,10 +105,14 @@ class author {
 	 * Mutator method for authorActivationToken. Needs additional sanitizing
 	 *
 	 * @param string $newAuthorActivationToken new value of authorActivationToken
-	 * @throws
+	 * @throws \InvalidArgumentException if $newAuthorActivationToken is empty or insecure
 	 */
 	public function setAuthorActivationToken(string $newAuthorActivationToken): void{
-
+		$newAuthorActivationToken = trim($newAuthorActivationToken);
+		$newAuthorActivationToken = filter_var($newAuthorActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newAuthorActivationToken) === true) {
+			throw(new \InvalidArgumentException("input is empty or insecure"));
+		}
 		$this->authorActivationToken = $newAuthorActivationToken;
 	}
 
@@ -119,10 +128,14 @@ class author {
 	 * Mutator method for authorEmail. Needs additional sanitizing
 	 *
 	 * @param string $newAuthorEmail new value of authorEmail
-	 * @throws
+	 * @throws \InvalidArgumentException if $newAuthorEmail is empty or insecure
 	 */
 	public function setAuthorEmail(string $newAuthorEmail): void{
-
+		$newAuthorEmail = trim($newAuthorEmail);
+		$newAuthorEmail = filter_var($newAuthorEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newAuthorEmail) === true) {
+			throw(new \InvalidArgumentException("input is empty or insecure"));
+		}
 		$this->authorEmail = $newAuthorEmail;
 	}
 
@@ -138,10 +151,14 @@ class author {
 	 * Mutator method for authorHash. Needs additional sanitizing
 	 *
 	 * @param string $newAuthorHash new value of authorHash
-	 * @throws
+	 * @throws \InvalidArgumentException if $newAuthorHash is empty or insecure
 	 */
 	public function setAuthorHash(string $newAuthorHash): void{
-
+		$newAuthorHash = trim($newAuthorHash);
+		$newAuthorHash = filter_var($newAuthorHash, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newAuthorHash) === true) {
+			throw(new \InvalidArgumentException("input is empty or insecure"));
+		}
 		$this->authorHash = $newAuthorHash;
 	}
 
@@ -157,17 +174,21 @@ class author {
 	 * Mutator method for authorUsername. Needs additional sanitizing
 	 *
 	 * @param string $newAuthorUsername new value of authorUsername
-	 * @throws
+	 * @throws \InvalidArgumentException if input is empty or insecure
 	 */
 	public function setAuthorUsername(string $newAuthorUsername): void{
-
+		$newAuthorUsername = trim($newAuthorUsername);
+		$newAuthorUsername = filter_var($newAuthorUsername, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newAuthorUsername) === true) {
+			throw(new \InvalidArgumentException("input is empty or insecure"));
+		}
 		$this->authorUsername = $newAuthorUsername;
 	}
 
 	/**
 	 * Constructor method for Author object
 	 *
-	 * @param AuthorId, AuthorAvatarUrl, AuthorActivationToken, authorEmail, authorHash, authorUsername
+	 * @param $newAuthorId, $newAuthorAvatarUrl, $newAuthorActivationToken, $newAuthorEmail, $newAuthorHash, $newAuthorUsername
 	 */
 	public function __construct(Uuid $newAuthorId, string $newAuthorAvatarUrl, string $newAuthorActivationToken, string $newAuthorEmail, string $newAuthorHash, string $newAuthorUsername): void {
 		$this->setAuthorId($newAuthorId);
