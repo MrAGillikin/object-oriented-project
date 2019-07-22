@@ -190,7 +190,7 @@ class author {
 	 *
 	 * @param $newAuthorId, $newAuthorAvatarUrl, $newAuthorActivationToken, $newAuthorEmail, $newAuthorHash, $newAuthorUsername
 	 */
-	public function __construct(Uuid $newAuthorId, string $newAuthorAvatarUrl, string $newAuthorActivationToken, string $newAuthorEmail, string $newAuthorHash, string $newAuthorUsername) {
+	public function __construct(string $newAuthorId, string $newAuthorAvatarUrl, string $newAuthorActivationToken, string $newAuthorEmail, string $newAuthorHash, string $newAuthorUsername) {
 		$this->setAuthorId($newAuthorId);
 		$this->setAuthorAvatarUrl($newAuthorAvatarUrl);
 		$this->setAuthorActivationToken($newAuthorActivationToken);
