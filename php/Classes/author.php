@@ -52,7 +52,7 @@ class author {
 	 * @param int $newAuthorId new value of authorId
 	 * @throws UnexpectedValueException if $newAuthorId is not an Int. (Should actually be binary)
 	 */
-	public function setAuthorId(Uuid $newAuthorId): void {
+	public function setAuthorId(string $newAuthorId): void {
 		// verify the author ID is valid
 		//$newAuthorId = filter_var($newAuthorId, FILTER_VALIDATE_INT);
 		//if($newAuthorId === false) {
