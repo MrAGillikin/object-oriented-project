@@ -12,6 +12,8 @@ require_once("autoload.php");
 use Ramsey\Uuid\Uuid;
 
 class author {
+	use ValidateDate;
+	use ValidateUuid;
 	/**
 	 * Id for this author. This is the primary Key, and the index.
 	 */
