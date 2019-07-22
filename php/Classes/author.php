@@ -9,7 +9,7 @@
 
 namespace agillikin1\ObjectOriented;
 require_once("autoload.php");
-use Ramsey\Uuid;//Uuid;
+use Ramsey\Uuid\Uuid;
 
 class author {
 	use ValidateDate;
