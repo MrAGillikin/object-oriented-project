@@ -110,11 +110,18 @@ class author {
 	 * @throws \InvalidArgumentException if $newAuthorActivationToken is empty or insecure
 	 */
 	public function setAuthorActivationToken(string $newAuthorActivationToken): void{
-		$newAuthorActivationToken = trim($newAuthorActivationToken);
+		$newAuthorActivationToken = strtolower(trim($newAuthorActivationToken));
 		$newAuthorActivationToken = filter_var($newAuthorActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newAuthorActivationToken) === true) {
-			throw(new \InvalidArgumentException("input is empty or insecure"));
+			throw(new \InvalidArgumentException("input is empty"));
 		}
+		if(ctype_xdigit($newAuthorActivationToken) === false) {
+			throw(new\RangeException("user activation is not valid"));
+		}
+		if(strlen($newAuthorActivationToken) !== 32) {
+			throw(new\RangeException("user activation token has to be 32 characters."));
+		}
+
 		$this->authorActivationToken = $newAuthorActivationToken;
 	}
 
