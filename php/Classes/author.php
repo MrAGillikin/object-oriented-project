@@ -212,6 +212,14 @@ class author {
 		}
 		$this->statement = $newStatement;
 	}
+	/**
+	 * Acessor method for statement
+	 *
+	 * @return string statement
+	 */
+	public function getStatement(): string {
+		return ($this->statement);
+	}
 
 
 	/**
