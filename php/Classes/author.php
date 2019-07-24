@@ -40,6 +40,11 @@ class author {
 	private $authorUsername;
 
 	/**
+	 * A string Statement. It does not need to be unique.
+	 */
+	private $statement = "";
+
+	/**
 	 * accessor method for authorId
 	 *
 	 * @return Uuid of authorId (should fit in Binary)
@@ -193,6 +198,21 @@ class author {
 		}
 		$this->authorUsername = $newAuthorUsername;
 	}
+
+	/**
+	 * Setter method for statement.
+	 * @param string newStatement
+	 * @throws \InvalidArgumentException if input is empty or insecure.
+	 */
+	public function setStatement(string $newStatement): void{
+		$newStatement = trim($newStatement);
+		$newStatement = filter_var($newStatement, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newStatement) === true) {
+			throw(new \InvalidArgumentException("input is empty or insecure"));
+		}
+		$this->statement = $newStatement;
+	}
+
 
 	/**
 	 * Constructor method for Author object
