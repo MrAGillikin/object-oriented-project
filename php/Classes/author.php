@@ -221,6 +221,20 @@ class author {
 		$this->indexCounter = $this->indexCounter+1;
 	}
 	/**
+	* Setter method for statement. Changes an index that already exists.
+	* @param string newStatement, int changeIndex
+	* @throws \InvalidArgumentException if input is empty or insecure.
+	*/
+	public function updateStatement(string $newStatement, int $changeIndex): void{
+		$newStatement = trim($newStatement);
+		$newStatement = filter_var($newStatement, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newStatement) === true) {
+			throw(new \InvalidArgumentException("input is empty or insecure"));
+		}
+		$this->statement[$changeIndex] = $newStatement;
+	}
+
+	/**
 	 * Accessor method for statement
 	 *
 	 * @return string statement
