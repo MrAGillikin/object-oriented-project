@@ -42,7 +42,14 @@ class author {
 	/**
 	 * A string Statement. It does not need to be unique.
 	 */
-	private $statement = "";
+	private $statement = array();
+	/**
+	 * A counter for our Statement array, used when setting its indexes.
+	 * @var int
+	 */
+	private $indexCounter = 0;
+
+
 
 	/**
 	 * accessor method for authorId
@@ -204,21 +211,31 @@ class author {
 	 * @param string newStatement
 	 * @throws \InvalidArgumentException if input is empty or insecure.
 	 */
-	public function setStatement(string $newStatement): void{
+	public function insertStatement(string $newStatement): void{
 		$newStatement = trim($newStatement);
 		$newStatement = filter_var($newStatement, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newStatement) === true) {
 			throw(new \InvalidArgumentException("input is empty or insecure"));
 		}
-		$this->statement = $newStatement;
+		$this->statement[$this->indexCounter] = $newStatement;
+		$this->indexCounter = $this->indexCounter+1;
 	}
 	/**
 	 * Accessor method for statement
 	 *
 	 * @return string statement
 	 */
-	public function getStatement(): string {
-		return ($this->statement);
+	public function getStatement(int $searchIndex): string {
+		return ($this->statement[$searchIndex]);
+	}
+
+	/**
+	 * Mutator (delete) method for Statement
+	 *
+	 * @param $indexErase index to be deleted
+	 */
+	public function deleteStatement (int $indexErase): void {
+		unset($this->statement[$indexErase]);
 	}
 
 	/**
@@ -226,9 +243,13 @@ class author {
 	 *
 	 * @return string
 	 */
-	public function getFooByBar():string{
-
-		return "Foo";
+	public function getFooByBar(string $foo ):string{
+		$foo = trim($foo);
+		$foo = filter_var($foo, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($foo) === true) {
+			throw(new \InvalidArgumentException("input is empty or insecure"));
+		}
+		return $this->$foo;
 	}
 
 	/**
@@ -236,9 +257,9 @@ class author {
 	 *
 	 * @return array
 	 */
-	public function getFooByBar(): array{
+	public function getFooByBar($foo,$bar): array{
 		return [
-			"Foo", "Bar",
+			$foo, $bar,
 		];
 	}
 
