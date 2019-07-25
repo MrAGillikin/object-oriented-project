@@ -213,13 +213,27 @@ class author {
 		$this->statement = $newStatement;
 	}
 	/**
-	 * Acessor method for statement
+	 * Accessor method for statement
 	 *
 	 * @return string statement
 	 */
 	public function getStatement(): string {
 		return ($this->statement);
 	}
+
+	/**
+	 * Accessor method for ??? that returns a string.
+	 *
+	 * @return string
+	 */
+	public function getFooByBar():string{}
+
+	/**
+	 * Accessor Method for ??? that returns an array.
+	 *
+	 * @return array
+	 */
+	public function getFooByBar(): array{}
 
 
 	/**
