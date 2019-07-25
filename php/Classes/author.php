@@ -226,14 +226,21 @@ class author {
 	 *
 	 * @return string
 	 */
-	public function getFooByBar():string{}
+	public function getFooByBar():string{
+
+		return "Foo";
+	}
 
 	/**
 	 * Accessor Method for ??? that returns an array.
 	 *
 	 * @return array
 	 */
-	public function getFooByBar(): array{}
+	public function getFooByBar(): array{
+		return [
+			"Foo", "Bar",
+		];
+	}
 
 
 	/**
