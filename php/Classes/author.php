@@ -263,10 +263,18 @@ class author {
 	/**
 	 * Mutator (delete) method for Statement
 	 *
-	 * @param $indexErase index to be deleted
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
 	 */
-	public function deleteStatement (int $indexErase): void {
-		unset($this->statement[$indexErase]);
+	public function deleteStatement (\PDO $pdo): void {
+		// create query template
+		$query = "DELETE FROM statement WHERE statementAuthor = :statementAuthor";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holder in the template
+		$parameters = ["statementAuthor" => $this->statementAuthor->getBytes()];
+		$statement->execute($parameters);
 	}
 
 	/**
