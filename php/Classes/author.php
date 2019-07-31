@@ -40,14 +40,19 @@ class author {
 	private $authorUsername;
 
 	/**
-	 * A string Statement. It does not need to be unique.
+	 * A string Statement. It does not need to be unique, but that is handled elsewhere.
 	 */
-	private $statement = array();
+	private $statement;
 	/**
-	 * A counter for our Statement array, used when setting its indexes.
+	 * A counter for our Statement, used to make an identifier.
 	 * @var int
 	 */
 	private $indexCounter = 0;
+
+	/**
+	 * A date value
+	 */
+	private $date;
 
 
 
@@ -209,16 +214,28 @@ class author {
 	/**
 	 * Setter method for statement.
 	 * @param string newStatement
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
 	 * @throws \InvalidArgumentException if input is empty or insecure.
 	 */
-	public function insertStatement(string $newStatement): void{
+	public function insertStatement(string $newStatement, \PDO $pdo): void{
 		$newStatement = trim($newStatement);
 		$newStatement = filter_var($newStatement, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newStatement) === true) {
 			throw(new \InvalidArgumentException("input is empty or insecure"));
 		}
-		$this->statement[$this->indexCounter] = $newStatement;
-		$this->indexCounter = $this->indexCounter+1;
+
+		// create query template
+		$query = "INSERT INTO statement(statementContent, statementAuthor, statementDate) VALUES(:statementContent, :statementAuthor, :statementDate)";
+		$pdoStatement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$formattedDate = $this->date->format("Y-m-d H:i:s.u");
+		$parameters = ["authorId" => $this->authorId->getBytes(), "statementContent" => $this->newStatement->getBytes(), "statementDate" => $this->date];
+		$pdoStatement->execute($parameters);
+
+		//$this->indexCounter = $this->indexCounter+1;
 	}
 	/**
 	* Setter method for statement. Changes an index that already exists.

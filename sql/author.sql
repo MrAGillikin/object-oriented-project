@@ -17,5 +17,6 @@ create table author(
 create table statement(
    statementContent varchar(255),
    statementAuthor binary (16) not null,
+   statementDate varchar(15),
 	foreign key (statementAuthor) references author(authorId)
 )
