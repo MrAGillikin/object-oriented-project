@@ -227,12 +227,12 @@ class author {
 		}
 
 		// create query template
-		$query = "INSERT INTO statement(statementContent, statementAuthor, statementDate) VALUES(:statementContent, :statementAuthor, :statementDate)";
+		$query = "INSERT INTO statement(statementId, statementContent, statementAuthor, statementDate) VALUES(:statementId, :statementContent, :statementAuthor, :statementDate)";
 		$pdoStatement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
 		$formattedDate = $this->date->format("Y-m-d H:i:s.u");
-		$parameters = ["authorId" => $this->authorId->getBytes(), "statementContent" => $this->newStatement->getBytes(), "statementDate" => $this->date];
+		$parameters = ["statementId" => $this->statementId->getBytes() , "authorId" => $this->authorId->getBytes(), "statementContent" => $this->newStatement->getBytes(), "statementDate" => $this->date];
 		$pdoStatement->execute($parameters);
 
 		//$this->indexCounter = $this->indexCounter+1;
@@ -253,7 +253,7 @@ class author {
 		}
 
 		// create query template
-		$query = "UPDATE statement SET statementAuthor = :statementAuthor, statementContent = :statementContent, statementDate = :statementDate WHERE statementAuthor = :statementAuthor";
+		$query = "UPDATE statement SET statementId = :statementId, statementAuthor = :statementAuthor, statementContent = :statementContent, statementDate = :statementDate WHERE statementAuthor = :statementAuthor";
 		$pdoStatement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
@@ -291,11 +291,11 @@ class author {
 	}
 
 	/**
-	 * Accessor method for ??? that returns a string.
+	 * Accessor method for Statement that returns a string.
 	 *
 	 * @return string
 	 */
-	public function getFooByBar(string $foo ):string{
+	public function getStatementByContent(\PDO $pdo , string $searchContent ):string{
 		$foo = trim($foo);
 		$foo = filter_var($foo, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($foo) === true) {
