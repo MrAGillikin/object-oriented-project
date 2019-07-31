@@ -1,3 +1,4 @@
+drop table if exists statement;
 drop table if exists author;
 
 create table author(
@@ -12,3 +13,9 @@ create table author(
 	INDEX(authorEmail),
 	primary key(authorId)
 );
+
+create table statement(
+   statementContent varchar(255),
+   statementAuthor binary (16) not null,
+	foreign key (statementAuthor) references author(authorId)
+)
