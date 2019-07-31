@@ -283,37 +283,90 @@ class author {
 	public function deleteStatement (\PDO $pdo): void {
 		// create query template
 		$query = "DELETE FROM statement WHERE statementAuthor = :statementAuthor";
-		$statement = $pdo->prepare($query);
+		$pdoStatement = $pdo->prepare($query);
 
 		// bind the member variables to the place holder in the template
 		$parameters = ["statementAuthor" => $this->statementAuthor->getBytes()];
-		$statement->execute($parameters);
+		$pdoStatement->execute($parameters);
 	}
 
 	/**
-	 * Accessor method for Statement that returns a string.
+	 * Accessor method for Statement that returns a statement.
 	 *
 	 * @return string
 	 */
-	public function getStatementByContent(\PDO $pdo , string $searchContent ):string{
-		$foo = trim($foo);
-		$foo = filter_var($foo, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($foo) === true) {
-			throw(new \InvalidArgumentException("input is empty or insecure"));
+	public function getStatementById(\PDO $pdo , string $statementId ): ?statement{
+		// sanitize the tweetId before searching
+		try {
+			$statementId = self::validateUuid($statementId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return $this->$foo;
+
+		// create query template
+		$query = "SELECT statementId, statementAuthor, statementContent, statementDate FROM statement WHERE statementId = :statementId";
+		$pdoStatement = $pdo->prepare($query);
+
+		// bind the tweet id to the place holder in the template
+		$parameters = ["statementId" => $statementId->getBytes()];
+		$pdoStatement->execute($parameters);
+
+		// grab the statement from mySQL
+		try {
+			$statement = null;
+			$pdoStatement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $pdoStatement->fetch();
+			if($row !== false) {
+				$statement = new Statement($row["statementId"], $row["statementAuthor"], $row["statementContent"], $row["statementDate"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($statement);
 	}
 
 	/**
-	 * Accessor Method for ??? that returns an array.
+	 * Accessor Method for Statement that returns an array.
 	 *
 	 * @return array
 	 */
-	public function getFooByBar($foo,$bar): array{
-		return [
-			$foo, $bar,
-		];
+	public function getStatementByContent(\PDO $pdo, string $statementContent) : \SplFixedArray {
+		// sanitize the description before searching
+		$statementContent = trim($statementContent);
+		$statementContent = filter_var($statementContent, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($statementContent) === true) {
+			throw(new \PDOException("statement content is invalid"));
+		}
+
+		// escape any mySQL wild cards
+		$statementContent = str_replace("_", "\\_", str_replace("%", "\\%", $statementContent));
+
+		// create query template
+		$query = "SELECT statementId, statementAuthor, statementContent, statementDate FROM statement WHERE statementContent LIKE :statementContent";
+		$pdoStatement = $pdo->prepare($query);
+
+		// bind the content to the place holder in the template
+		$statementContent = "%$statementContent%";
+		$parameters = ["statementContent" => $statementContent];
+		$pdoStatement->execute($parameters);
+
+		// build an array of tweets
+		$statements = new \SplFixedArray($pdoStatement->rowCount());
+		$pdoStatement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $pdoStatement->fetch()) !== false) {
+			try {
+				$statement = new Statement($row["statementId"], $row["statementAuthor"], $row["statementContent"], $row["statementDate"]);
+				$statements[$statements->key()] = $statement;
+				$statements->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($statements);
 	}
+
 
 
 	/**
