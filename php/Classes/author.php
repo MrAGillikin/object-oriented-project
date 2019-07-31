@@ -239,15 +239,28 @@ class author {
 	}
 	/**
 	* Setter method for statement. Changes an index that already exists.
-	* @param string newStatement, int changeIndex
+	* @param string newStatement
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
 	* @throws \InvalidArgumentException if input is empty or insecure.
 	*/
-	public function updateStatement(string $newStatement, int $changeIndex): void{
+	public function updateStatement(string $newStatement, \PDO $pdo): void{
 		$newStatement = trim($newStatement);
 		$newStatement = filter_var($newStatement, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newStatement) === true) {
 			throw(new \InvalidArgumentException("input is empty or insecure"));
 		}
+
+		// create query template
+		$query = "UPDATE statement SET statementAuthor = :statementAuthor, statementContent = :statementContent, statementDate = :statementDate WHERE statementAuthor = :statementAuthor";
+		$pdoStatement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$formattedDate = $this->date->format("Y-m-d H:i:s.u");
+		$parameters = ["authorId" => $this->authorId->getBytes(), "statementContent" => $this->newStatement->getBytes(), "statementDate" => $this->date];
+		$pdoStatement->execute($parameters);
+
 		$this->statement[$changeIndex] = $newStatement;
 	}
 
